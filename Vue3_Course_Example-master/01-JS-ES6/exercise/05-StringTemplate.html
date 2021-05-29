@@ -6,6 +6,15 @@
     <title>字串模板 string template</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      const concat = (name, age) => {
+        // `字串模組支援換行`
+        return `Hi 
+        我是${name}，
+        我今年${age}歲`;
+      };
+
+      console.log(concat("Thomas", 27));
+    </script>
   </body>
 </html>
