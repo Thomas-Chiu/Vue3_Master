@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Function Default</title>
+  </head>
+  <body>
+    <script>
+      // function 可在參數給定預設值
+      const arrToStr = (arr = []) => {
+        const mapStr = arr.map((item) => item + "");
+        return mapStr;
+      };
+
+      console.log(arrToStr()); // []
+      console.log(arrToStr([99, 98, 97])); // ["99", "98", "97"]
+    </script>
+  </body>
+</html>
