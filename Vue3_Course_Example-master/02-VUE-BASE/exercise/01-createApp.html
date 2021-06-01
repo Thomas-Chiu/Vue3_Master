@@ -6,8 +6,18 @@
     <title>createApp & setup</title>
   </head>
   <body>
+    <!-- vue 用的 DOM -->
     <div id="app"></div>
+    <!-- 引用 vue.js -->
     <script src="./js/vue.js"></script>
-    <script></script>
+    <script>
+      // 起手式
+      const App = {
+        setup() {
+          return {};
+        },
+      };
+      Vue.createApp(App).mount("#app");
+    </script>
   </body>
 </html>

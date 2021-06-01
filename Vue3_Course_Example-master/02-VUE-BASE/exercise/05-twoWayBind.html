@@ -7,22 +7,46 @@
   </head>
   <body>
     <div id="app">
-      <h1></h1>
-      <input type="text" />
-      <br />
-      <br />
-      <br />
-      <h1></h1>
-      <input type="text" />
+      <h1>{{text}}</h1>
+      <!-- v-model 資料雙向綁定 -->
+      <input type="text" v-model="text" />
+      <hr />
+      <h1>{{message.name}}</h1>
+      <input type="text" v-model="message.name" />
+      <hr />
+      <h1>{{message.age}}</h1>
+      <input type="text" v-model="message.age" />
+      <hr />
+      <input type="button" value="click" @click="click" />
     </div>
     <script src="./js/vue.js"></script>
     <script>
       const { ref, reactive } = Vue;
       const App = {
         setup() {
-          return {};
+          const text = ref("hello vue");
+          const message = reactive({
+            name: "thomas",
+            age: 27,
+          });
+          const data = {};
+          const click = () => {
+            data.text = text.value;
+            data.name = message.name;
+            data.age = message.age;
+            document.write;
+            console.log(data);
+          };
+
+          return {
+            text,
+            message,
+            data,
+            click,
+          };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

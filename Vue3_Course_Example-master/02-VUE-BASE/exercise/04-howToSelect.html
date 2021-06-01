@@ -6,12 +6,28 @@
     <title>howToSelect</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <h1>{{text}}</h1>
+      <h1 v-for="(value, index) in message.names">name: {{value}}</h1>
+      <h1 v-for="(value, index) in message.ages">age: {{value}}</h1>
+    </div>
     <script src="./js/vue.js"></script>
     <script>
+      const { ref, reactive } = Vue;
       const App = {
         setup() {
-          return {};
+          // ref() 接受任何資料型態，不監聽資料變動
+          const text = ref("hello vue");
+          // reactive() 只接受物件 & 陣列，監聽資料變動
+          const message = reactive({
+            names: ["thomas", "vina"],
+            ages: [27, 24],
+          });
+
+          return {
+            text,
+            message,
+          };
         },
       };
       Vue.createApp(App).mount("#app");

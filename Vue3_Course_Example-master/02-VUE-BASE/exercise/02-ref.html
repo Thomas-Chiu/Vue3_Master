@@ -6,16 +6,39 @@
     <title>ref</title>
   </head>
   <body>
+    <!-- vue 用的 DOM -->
     <div id="app">
-      <h1></h1>
+      <!-- 印出 text -->
+      <h1>{{text1}}</h1>
+      <h1>{{text2}}</h1>
     </div>
     <script src="./js/vue.js"></script>
     <script>
+      // ref 從 Vue 物件解構寫法
+      const { ref } = Vue;
       const App = {
+        // 起手式
         setup() {
-          return {};
+          // 一般寫法
+          let text1 = Vue.ref("hello vue");
+          // 解構寫法
+          const text2 = ref("hello vue");
+
+          setTimeout(() => {
+            // 這樣寫沒辦法綁定 {{text1}}
+            text1 = "hello vue 2";
+            console.log(text1);
+          }, 1000);
+
+          setTimeout(() => {
+            // 要用 .value() 的方式綁定
+            text2.value = "hello vue 3";
+            console.log(text2);
+          }, 1000);
+          return { text1, text2 };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>
