@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字串模板 string template</title>
+  </head>
+  <body>
+    <script>
+      const concat = (name, age) => {
+        // `` 字串模板支援換行
+        return `Hi 
+        我是${name}，
+        我今年${age}歲`;
+      };
+
+      console.log(concat("Thomas", 27));
+    </script>
+  </body>
+</html>

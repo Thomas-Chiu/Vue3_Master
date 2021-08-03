@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>解構賦值 (Destructuring assignment)</title>
+  </head>
+  <body>
+    <script>
+      const data = {
+        name: "thomas",
+        age: 27,
+        gender: "male",
+      };
+
+      // 一般取值寫法
+      console.log(data.name, data.age, data.gender);
+
+      // 解構賦值寫法一
+      const { name, age, gender } = data;
+      console.log(name, age, gender);
+
+      // 解構賦值寫法二 (物件包物件)
+      const dataInData = {
+        data,
+        country: "Taiwan",
+      };
+
+      console.log(dataInData);
+    </script>
+  </body>
+</html>

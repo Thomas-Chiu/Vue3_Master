@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>箭頭函式運算式（arrow function expression）</title>
+  </head>
+  <body>
+    <a id="aLink1" href="#">Click1</a>
+    <a id="aLink2" href="#">Click2</a>
+    <script>
+      document.getElementById("aLink1").addEventListener("click", function () {
+        // this = <a> 元素
+        console.log(this);
+      });
+
+      document.getElementById("aLink2").addEventListener("click", (e) => {
+        // 箭頭函式沒有 this，所以會往上層抓 Window 物件
+        // 可用 e.target 取得元素
+        console.log(e.target);
+      });
+
+      // 箭頭函式只能用變數宣告的方式
+      const Add = (a, b) => {
+        return a + b;
+      };
+      console.log("1 + 3 = ", Add(1, 3));
+
+      // 只有 return 一行程式碼可簡寫
+      const Sub = (a, b) => a - b;
+      console.log("3 - 1 = ", Sub(3, 1));
+    </script>
+  </body>
+</html>

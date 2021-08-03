@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES Module</title>
+  </head>
+  <body>
+    <!-- 舊的引用方法 -->
+    <!-- <script src="./export.js"></script> -->
+    <!-- ES6 引用方法 -->
+    <script type="module">
+      import add from "./export.js";
+
+      console.log(add, add(9, 11));
+    </script>
+  </body>
+</html>

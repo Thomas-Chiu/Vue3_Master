@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>createApp & setup</title>
+  </head>
+  <body>
+    <!-- vue 用的 DOM -->
+    <div id="app"></div>
+    <!-- 引用 vue.js -->
+    <script src="./js/vue.js"></script>
+    <script>
+      // 起手式
+      const App = {
+        setup() {
+          return {};
+        },
+      };
+      Vue.createApp(App).mount("#app");
+    </script>
+  </body>
+</html>
