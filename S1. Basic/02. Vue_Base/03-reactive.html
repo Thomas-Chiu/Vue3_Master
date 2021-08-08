@@ -12,6 +12,7 @@
     </div>
     <script src="./js/vue.js"></script>
     <script>
+      // 從 Vue 物件解構 reactive 屬性
       const { reactive } = Vue;
       const App = {
         setup() {
@@ -20,9 +21,11 @@
             name: "thomas",
             age: 27,
           });
+
           return { message };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>
