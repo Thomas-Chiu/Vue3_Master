@@ -8,7 +8,15 @@
   <body>
     <div id="app">
       <ul>
-        <li></li>
+        <!-- 利用 v-for 印出 -->
+        <li v-for="(item, idx) in items">{{idx + 1}}：{{ item.name}}</li>
+      </ul>
+      <hr />
+      <ul>
+        <!-- 搭配 v-show 判斷 -->
+        <li v-for="(item, idx) in items" v-show="item.show">
+          {{idx + 1}}：{{item.name}}>
+        </li>
       </ul>
     </div>
     <script src="./js/vue.js"></script>
@@ -16,18 +24,19 @@
       const { reactive } = Vue;
       const App = {
         setup() {
-          const listArr = reactive([
+          // 定義 reactive 陣列資料
+          const items = reactive([
             { name: "2020 Vue3 專業職人 | 入門篇", show: true },
             { name: "2020 Vue3 專業職人 | 加值篇", show: false },
             { name: "2020 Vue3 專業職人 | 進階篇", show: true },
-            { name: "現代 JavaScript 職人之路｜入門篇", show: true },
-            { name: "現代 JavaScript 職人之路｜中階實戰篇", show: false },
+            { name: "現代 JavaScript 職人之路｜入門篇", show: false },
+            { name: "現代 JavaScript 職人之路｜中階實戰篇", show: true },
           ]);
-          return {
-            listArr,
-          };
+
+          return { items };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

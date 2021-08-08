@@ -7,17 +7,38 @@
   </head>
   <body>
     <div id="app">
-      <h1></h1>
-      <button>Add</button>
-      <button>Remove</button>
+      <h1>{{count}}</h1>
+      <h2>{{countId.id}}</h2>
+      <!-- v-on 事件綁定 -->
+      <button v-on:click="addCount">Add</button>
+      <!-- @Event 簡寫 -->
+      <button @click="subCount">Subtract</button>
     </div>
     <script src="./js/vue.js"></script>
     <script>
+      const { ref, reactive } = Vue;
       const App = {
         setup() {
-          return {};
+          const count = ref(0);
+          const countId = reactive({ id: 0 });
+          const addCount = () => {
+            count.value++;
+            countId.id++;
+          };
+          const subCount = () => {
+            count.value--;
+            countId.id--;
+          };
+
+          return {
+            count,
+            countId,
+            addCount,
+            subCount,
+          };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

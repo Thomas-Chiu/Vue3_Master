@@ -12,25 +12,44 @@
   </head>
   <body>
     <div id="app">
-      <h1>{{Num.idx}}</h1>
-      <button @click="AddFn">Add</button>
+      <h1>count: {{count}}</h1>
+      <h2>countId: {{countId.id}}</h2>
+      <button @click="addCount">Add</button>
       <button @click="Test">Add copy</button>
     </div>
     <script src="./js/vue.js"></script>
     <script>
-      const { reactive } = Vue;
+      const { ref, reactive, readonly } = Vue;
       const App = {
         setup() {
-          const Num = reactive({ idx: 0 });
-          const AddFn = () => {
-            Num.idx++;
+          const count = ref(0);
+          const countId = reactive({ id: 0 });
+          // readonly 同步 ref, reactive 值
+          const countCopy = readonly(count);
+          const countIdCopy = readonly(countId);
+          const addCount = () => {
+            // 修改 ref, reactive 值
+            count.value++;
+            countId.id++;
+            // readonly 值也跟著改變
+            console.log("countCopy => ", countCopy);
+            console.log("countIdCopy => ", countIdCopy);
+          };
+          // 若有人誤修改 readonly 的值，Vue 會跳警告
+          const Test = () => {
+            countCopy.value++;
+            countIdCopy.id++;
           };
 
-          const Test = () => {};
-
-          return { Num, AddFn, Test };
+          return {
+            count,
+            countId,
+            addCount,
+            Test,
+          };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

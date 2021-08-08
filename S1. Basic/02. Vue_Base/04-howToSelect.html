@@ -7,7 +7,9 @@
   </head>
   <body>
     <div id="app">
+      <!-- 印出 ref() 資料 -->
       <h1>{{text}}</h1>
+      <!-- 印出 reactive() 資料 -->
       <h1 v-for="(value, index) in message.names">name: {{value}}</h1>
       <h1 v-for="(value, index) in message.ages">age: {{value}}</h1>
     </div>
@@ -18,7 +20,7 @@
         setup() {
           // ref() 接受任何資料型態，不監聽資料變動
           const text = ref("hello vue");
-          // reactive() 只接受物件 & 陣列，監聽資料變動
+          // reactive() 只接受物件或陣列，監聽資料變動
           const message = reactive({
             names: ["thomas", "vina"],
             ages: [27, 24],
@@ -30,6 +32,7 @@
           };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>
