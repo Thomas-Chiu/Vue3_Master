@@ -16,7 +16,13 @@
   <body>
     <div id="app">
       <ul>
-        <li v-for="(list, idx) in listArr" v-bind:key="list.name">
+        <!-- v-bind:attribute 屬性綁定 -->
+        <!-- :attribute 簡寫 -->
+        <li
+          v-for="(list, idx) in listArr"
+          v-bind:key="list.name"
+          :class="list.status"
+        >
           {{idx + 1}}. {{list.name}}
         </li>
       </ul>
@@ -33,11 +39,11 @@
             { name: "現代 JavaScript 職人之路｜入門篇", status: "red" },
             { name: "現代 JavaScript 職人之路｜中階實戰篇", status: "blue" },
           ]);
-          return {
-            listArr,
-          };
+
+          return { listArr };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

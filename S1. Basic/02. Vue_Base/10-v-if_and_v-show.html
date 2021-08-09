@@ -7,9 +7,9 @@
   </head>
   <body>
     <div id="app">
-      <h1 id="vue-if">{{Text}}</h1>
-      <h1 id="vue-show">{{Text}}</h1>
-      <button @click="handDomShow">Hand Dom Show</button>
+      <h1 v-if="isShow">{{Text}}</h1>
+      <h1 v-show="isShow">{{Text}}</h1>
+      <button @click="toggleShow">toggle show</button>
     </div>
     <script src="./js/vue.js"></script>
     <script>
@@ -18,18 +18,18 @@
         setup() {
           const isShow = ref(false);
           const Text = ref("Hello Vue!");
-
-          const handDomShow = () => {
+          const toggleShow = () => {
             isShow.value = !isShow.value;
           };
 
           return {
             Text,
             isShow,
-            handDomShow,
+            toggleShow,
           };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>
