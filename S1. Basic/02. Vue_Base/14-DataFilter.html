@@ -61,8 +61,9 @@
     <div id="app">
       <a @click="HandListShow" class="title">課程列表</a>
       <ul class="box" :style="{height: BoxHeight}">
-        <li v-for="(list, idx) in listArr" :key="list">
-          {{idx + 1}}. {{list.name}} => ${{list.money}}
+        <!-- v-for 跑 filter 後資料 -->
+        <li v-for="(item, idx) in filterData" :key="filterData.name">
+          {{idx + 1}}. {{item.name}} => ${{item.money}}
         </li>
       </ul>
     </div>
@@ -82,11 +83,18 @@
             { name: "HTML5+Animate CC 網頁動畫與遊戲互動", money: 2000 },
             { name: "現代 JavaScript 職人之路｜面試篇", money: 1800 },
           ]);
-
-          const BoxHeight = computed(() => {
-            return isOpen.value ? `${listArr.length * 40}px` : "0px";
+          // 利用 computed 篩選資料
+          const filterData = computed(() => {
+            // filter 過濾 > $500 資料
+            let filter = listArr.filter((item) => item.money > 500);
+            console.log(filter);
+            return filter;
           });
-
+          // 利用 computed 計算 filter 後資料
+          const BoxHeight = computed(() => {
+            // computed 物件，也要用 .value 修改值
+            return isOpen.value ? `${filterData.value.length * 40}px` : "0px";
+          });
           const HandListShow = () => {
             isOpen.value = !isOpen.value;
           };
@@ -96,9 +104,11 @@
             listArr,
             HandListShow,
             BoxHeight,
+            filterData,
           };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>

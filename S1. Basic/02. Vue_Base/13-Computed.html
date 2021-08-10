@@ -60,13 +60,16 @@
   <body>
     <div id="app">
       <a @click="HandListShow" class="title">課程列表</a>
-      <ul class="box">
-        <li v-for="(list, idx) in listArr" :key="list">{{list.name}}</li>
+      <ul class="box" :style="{height: domH}">
+        <!-- <li v-for="(list, idx) in listArr" :key="list">{{list.name}}</li> -->
+        <li v-for="(item, idx) in strArr" :key="item.course">
+          {{item.course}}
+        </li>
       </ul>
     </div>
     <script src="./js/vue.js"></script>
     <script>
-      const { ref, reactive } = Vue;
+      const { ref, reactive, computed } = Vue;
       const App = {
         setup() {
           const isOpen = ref(true);
@@ -80,18 +83,34 @@
             { name: "HTML5+Animate CC 網頁動畫與遊戲互動", money: 2000 },
             { name: "現代 JavaScript 職人之路｜面試篇", money: 1800 },
           ]);
-
+          // 一般 method 函式可傳入參數計算
           const HandListShow = () => {
             isOpen.value = !isOpen.value;
           };
+          // 利用 computed 動態計算 .box 的高度
+          const domH = computed(() => {
+            return isOpen.value ? `${listArr.length * 40}px` : 0;
+          });
+          // 利用 computed 重組字串資料
+          const strArr = computed(() => {
+            // map() 返回新陣列
+            let str = listArr.map((item) => {
+              return { course: `課程: ${item.name} => 價格: ${item.money}` };
+            });
+            console.log(str);
+            return str;
+          });
 
           return {
             isOpen,
             listArr,
             HandListShow,
+            domH,
+            strArr,
           };
         },
       };
+
       Vue.createApp(App).mount("#app");
     </script>
   </body>
