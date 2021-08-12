@@ -13,13 +13,20 @@
       const { ref, reactive, watch } = Vue;
       const App = {
         setup() {
-          const data = ref({ user: {} });
-
-          watch(data, (newVal) => {
-            console.log(newVal);
-          });
-
-          setTimeout(() => {}, 1000);
+          const data = ref({ user: {}, age: [] });
+          // 利用 watch deep 監控整個 ref 物件
+          watch(
+            data,
+            (newVal) => {
+              console.log(newVal);
+            },
+            { deep: true }
+          );
+          // 改變監控資料
+          setTimeout(() => {
+            data.value.user["name"] = "Thomas";
+            data.value.age.push(27);
+          }, 1000);
 
           return {};
         },

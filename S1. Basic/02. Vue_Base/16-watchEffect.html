@@ -10,14 +10,26 @@
 
     <script src="./js/vue.js"></script>
     <script>
-      const { ref, reactive } = Vue;
+      const { ref, reactive, watchEffect } = Vue;
       const App = {
         setup() {
           const num = ref(0);
           const numData = reactive({ idx: 0 });
-
-          setTimeout(() => {
-            num.value++;
+          // watchEffect 初始化就先執行一次
+          const stop = watchEffect(() => {
+            if (numData.idx >= 3) {
+              // 停止 watchEffect & clearInterval()
+              stop();
+              clearInterval();
+            } else {
+              // num.value 無變動，無觸發
+              console.log(num.value);
+              // numData.idx 有變動，才觸發
+              console.log(numData.idx);
+            }
+          });
+          // 改變監控資料
+          let timer = setInterval(() => {
             numData.idx++;
           }, 1000);
 

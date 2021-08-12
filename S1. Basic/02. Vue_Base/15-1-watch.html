@@ -10,9 +10,29 @@
 
     <script src="./js/vue.js"></script>
     <script>
-      const { ref, reactive } = Vue;
+      const { ref, reactive, watch } = Vue;
       const App = {
         setup() {
+          const idx = ref(0);
+          const data = reactive({ idx: 0 });
+          // watch ref 資料
+          watch(idx, (newIdx, oldIdx) => {
+            console.log(`new: ${newIdx}, old: ${oldIdx}`);
+          });
+          // watch reactive 資料
+          // 需透過匿名函式監控
+          watch(
+            () => data.idx,
+            (newIdx, oldIdx) => {
+              console.log(`new: ${newIdx}, old: ${oldIdx}`);
+            }
+          );
+          // 改變監控資料
+          setInterval(() => {
+            idx.value++;
+            data.idx--;
+          }, 1000);
+
           return {};
         },
       };

@@ -18,6 +18,33 @@
         setup() {
           const refObj = ref({ idx: 0 });
           const reactiveObj = reactive({ idx: 0 });
+          //  ref 無法監聽整個物件變動
+          watch(refObj, (newVal) => {
+            console.log(`refObj: ${newVal}`);
+          });
+          // ref 只能監聽單一值的變動，需透過匿名函式寫法
+          watch(
+            () => refObj.value.idx,
+            (newVal) => {
+              console.log(`refObj.value.idx: ${newVal}`);
+            }
+          );
+          // reactive 可監聽整個物件變動
+          watch(reactiveObj, (newVal) => {
+            console.log(`reactiveObj: ${newVal}`);
+          });
+          // reactive 也可監聽單一值的變動，需透過匿名函式寫法
+          watch(
+            () => reactiveObj.idx,
+            (newVal) => {
+              console.log(`reactiveObj.idx: ${newVal}`);
+            }
+          );
+          // 改變監控資料
+          setTimeout(() => {
+            refObj.value.idx++;
+            reactiveObj.idx--;
+          }, 1000);
 
           return { refObj, reactiveObj };
         },
