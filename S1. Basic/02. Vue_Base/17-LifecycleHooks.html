@@ -16,21 +16,26 @@
       const App = {
         setup() {
           const idx = ref(0);
+          console.log("當 Vue 掛載到 app 上面後執行");
+
           setTimeout(() => {
             idx.value = 1;
             console.log(idx.value);
           }, 3000);
+
           onBeforeMount(() => {
             // DOM 渲染前
             console.log("DOM 渲染前");
           });
+
           onMounted(() => {
             // DOM 渲染完成後
             console.log("DOM 渲染完成後");
           });
+
           onUpdated(() => {
-            // 在資料更改導致virtual DOM重新渲染後調用
-            console.log("資料更改後");
+            // 在資料更改導致 virtual DOM 重新渲染後調用
+            console.log("當資料更改，DOM 重新渲染後");
           });
 
           return {
