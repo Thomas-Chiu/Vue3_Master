@@ -10,30 +10,93 @@
     <div id="app">
       <div class="wait">
         <ul>
-          <li>
-            <img src="" alt="" />
+          <!-- v-for 渲染九宮格畫面 -->
+          <li
+            v-for="(item, idx) in todoWait.content"
+            :key="item.url"
+            @click="handleClick(item, idx)"
+          >
+            <img :src="item.url" />
           </li>
         </ul>
       </div>
       <div class="carried">
         <ul>
-          <li>
-            <img alt="" />
+          <!-- v-for 移動拼圖畫面 -->
+          <li
+            v-for="(item, idx) in todoOver.content"
+            :key="item.url"
+            @click="resetClick(item, idx)"
+          >
+            <img :src="item.url" />
           </li>
         </ul>
       </div>
-      <div class="winPage">
+      <div :class="['winPage', {open: isWin}]">
         <h1>闖關成功</h1>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./js/vue.js"></script>
     <script>
+      const { ref, reactive, onMounted, watch } = Vue;
       const app = {
         setup() {
-          return {};
+          // 初始化的拼圖
+          const todoWait = reactive({ content: [] });
+          // 移動過去的拼圖
+          const todoOver = reactive({ content: [] });
+          const winCount = ref(0);
+          const isWin = ref(false);
+
+          const handleClick = (item, idx) => {
+            todoOver.content.push(item);
+            todoWait.content.splice(idx, 1);
+          };
+          const resetClick = (item, idx) => {
+            todoWait.content.push(item);
+            todoOver.content.splice(idx, 1);
+          };
+
+          // 監控深層結構
+          watch(
+            () => todoOver.content,
+            (newArr) => {
+              winCount.value = 0;
+              // 遍歷物件和陣列索引是否相同
+              newArr.forEach((item, idx) => {
+                if (item.idx === idx) {
+                  winCount.value++;
+                }
+              });
+            },
+            { deep: true }
+          );
+
+          // 判斷過關標準
+          watch(winCount, (newVal) => {
+            if (newVal === 9) {
+              isWin.value = true;
+            }
+          });
+
+          // 取得物件資料
+          onMounted(() => {
+            axios.get("./api/puzzle.json").then((res) => {
+              todoWait.content = res.data;
+            });
+          });
+
+          return {
+            todoWait,
+            todoOver,
+            handleClick,
+            resetClick,
+            isWin,
+          };
         },
       };
+
       Vue.createApp(app).mount("#app");
     </script>
   </body>
