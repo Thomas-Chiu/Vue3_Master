@@ -8,10 +8,16 @@
   </head>
   <body>
     <div id="app">
-      <a class="card" href="#" @click="gotoCourseListPage">
+      <!-- <a class="card" href="javascript:;" @click="gotoCourseListPage"> -->
+
+      <!-- @click.prevent 阻止預設事件 -->
+      <a class="card" href="#" @click.prevent="gotoCourseListPage">
         <div class="img-box">
           <img src="./images/courses.jpg" alt="" />
-          <p class="info" @click="gotoInfoPage">課程資訊</p>
+          <!-- @click.stop 阻止冒泡事件 -->
+          <p class="info" @click.stop="gotoInfoPage">課程資訊</p>
+          <!-- @click.prevent.stop 同時阻止預設事件 & 冒泡事件 -->
+          <p class="info" @click.prevent.stop="gotoInfoPage">課程資訊</p>
         </div>
         <div class="text-box">
           <p>2020 Vue3 專業職人 | 入門篇 (預購中)</p>
@@ -25,7 +31,8 @@
           const gotoInfoPage = () => {
             window.open("https://hiskio.com/courses/286/about");
           };
-          const gotoCourseListPage = () => {
+          const gotoCourseListPage = (e) => {
+            // e.preventDefault();
             window.open("https://hiskio.com/courses/286/lectures");
           };
           return {
