@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Bindings</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/01-FormBindings.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="input-box">
+        <p>E-MAIL</p>
+        <input type="text" placeholder="輸入 email" v-model="email" />
+      </div>
+      <div class="input-box">
+        <p>PASSWORD</p>
+        <input type="text" placeholder="輸入密碼" v-model="pwd" />
+      </div>
+      <div class="input-box">
+        <!-- checkbox 可用 v-model 綁定布林值 -->
+        <input type="checkbox" id="checkbox" v-model="check" />
+        <label for="checkbox">我已閱讀使用者條款</label>
+      </div>
+      <a class="btn" @click="handSubmit">送出</a>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      const { ref } = Vue;
+      const App = {
+        setup() {
+          const email = ref("");
+          const pwd = ref("");
+          const check = ref(false);
+
+          const handSubmit = () => {
+            console.log(email.value, pwd.value, check.value);
+          };
+
+          return { email, pwd, check, handSubmit };
+        },
+      };
+
+      Vue.createApp(App).mount("#app");
+    </script>
+  </body>
+</html>
