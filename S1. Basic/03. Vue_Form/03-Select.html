@@ -10,21 +10,70 @@
   <body>
     <div id="app">
       <div class="select-box">
-        <select>
+        <!-- v-model 綁定 (預設值為空字串) -->
+        <select v-model="cityActive">
           <option disabled value="">請選擇縣市</option>
+          <option
+            v-for="item in twzip.city"
+            :key="item.name"
+            :value="item.name"
+          >
+            {{item.name}}
+          </option>
         </select>
-        <select>
+        <!-- v-model 綁定 (預設值為空字串) -->
+        <select v-model="areaActive">
           <option disabled value="">請選擇區域</option>
+          <!-- v-bind 可用 "+" 連接字串 -->
+          <option
+            v-for="item in twzip.area"
+            :key="item.zip"
+            :value="item.name + item.zip"
+          >
+            {{item.name}}
+          </option>
         </select>
       </div>
-      <a class="btn">送出</a>
+      <a class="btn" @click="handSubmit">送出</a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="./js/vue.js"></script>
     <script>
+      const { onMounted, reactive, ref, watch } = Vue;
       const App = {
         setup() {
-          return {};
+          const api = "https://vue-lessons-api.herokuapp.com/city/list";
+          const twzip = reactive({ city: [], area: [] });
+          const cityActive = ref("");
+          const areaActive = ref("");
+
+          const handSubmit = () => {
+            console.log(cityActive.value, areaActive.value);
+          };
+
+          // 監控「請選擇縣市」下拉式選單
+          watch(cityActive, (newCity) => {
+            // filter() 出特定縣市的區域資料
+            const filter = twzip.city.filter((item) => item.name === newCity);
+            // 清空「請選擇區域」資料
+            areaActive.value = "";
+            twzip.area = filter[0].area;
+            console.log(twzip.area);
+          });
+
+          onMounted(() => {
+            axios
+              .get(api)
+              .then((res) => {
+                twzip.city = res.data.twzip.city;
+                console.log(twzip.city);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+
+          return { twzip, cityActive, areaActive, handSubmit };
         },
       };
 
