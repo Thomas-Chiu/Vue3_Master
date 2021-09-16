@@ -1,0 +1,49 @@
+<script>
+// 引入組件
+import Header from "@/components/Header.vue";
+import Article from "@/components/Article.vue";
+import Aside from "@/components/Aside.vue";
+import Main from "@/components/Main.vue";
+import Footer from "@/components/Footer.vue";
+
+export default {
+  // 解構使用
+  components: {
+    Header,
+    Article,
+    Aside,
+    Main,
+    Footer,
+  },
+};
+</script>
+
+<template>
+  <!-- 引入的組件直接當標籤使用 -->
+  <!-- vue3 可不用包一個 div -->
+  <Header></Header>
+  <Article></Article>
+  <Aside></Aside>
+  <Main></Main>
+  <Footer></Footer>
+</template>
+
+<style>
+/* reset.css */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Microsoft JhengHei", "Heiti TC", "sans-serif";
+}
+img {
+  display: block;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+</style>
